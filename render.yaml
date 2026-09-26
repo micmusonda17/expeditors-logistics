@@ -1,0 +1,46 @@
+# Render Blueprint: API (Docker) + PostgreSQL + static website.
+# In Render: New > Blueprint > pick this repository. Rename services if the names are taken,
+# then update CORS_ORIGINS and VITE_API_URL to the real addresses.
+databases:
+  - name: expeditors-db
+    databaseName: expeditors
+    user: expeditors
+
+services:
+  - type: web
+    name: expeditors-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: expeditors-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: https://expeditors-web.onrender.com
+      - key: PUBLIC_SITE_URL
+        value: https://expeditors-web.onrender.com
+      # Quote emails: Render asks for the Gmail app password when the blueprint is created.
+      - key: NOTIFY_EMAIL
+        value: expeditorsafrica@gmail.com
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_USER
+        value: expeditorsafrica@gmail.com
+      - key: SMTP_PASSWORD
+        sync: false
+
+  - type: web
+    name: expeditors-web
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://expeditors-api.onrender.com/api

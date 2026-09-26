@@ -1,0 +1,1409 @@
+{
+  "$comment": "Single source of truth for towns, border posts, roads and routes. Used by the React frontend and the FastAPI backend. Distances are approximate road kilometres.",
+  "version": 1,
+  "countries": {
+    "ZM": "Zambia",
+    "ZA": "South Africa",
+    "ZW": "Zimbabwe",
+    "BW": "Botswana",
+    "NA": "Namibia",
+    "MZ": "Mozambique",
+    "MW": "Malawi",
+    "TZ": "Tanzania",
+    "CD": "DR Congo"
+  },
+  "stages": [
+    "Booked",
+    "Loaded",
+    "In transit",
+    "At border",
+    "Delivered"
+  ],
+  "hubs": {
+    "lusaka": {
+      "name": "Lusaka",
+      "country": "ZM",
+      "ll": [
+        -15.4167,
+        28.2833
+      ],
+      "label": "r"
+    },
+    "kabwe": {
+      "name": "Kabwe",
+      "country": "ZM",
+      "ll": [
+        -14.45,
+        28.45
+      ],
+      "label": "r",
+      "zoom": 1
+    },
+    "kapiri": {
+      "name": "Kapiri Mposhi",
+      "country": "ZM",
+      "ll": [
+        -13.97,
+        28.68
+      ],
+      "label": "l",
+      "minor": true
+    },
+    "ndola": {
+      "name": "Ndola",
+      "country": "ZM",
+      "ll": [
+        -12.9587,
+        28.6366
+      ],
+      "label": "r",
+      "small": true
+    },
+    "kitwe": {
+      "name": "Kitwe",
+      "country": "ZM",
+      "ll": [
+        -12.8024,
+        28.2132
+      ],
+      "label": "b"
+    },
+    "chingola": {
+      "name": "Chingola",
+      "country": "ZM",
+      "ll": [
+        -12.53,
+        27.85
+      ],
+      "label": "l",
+      "zoom": 1
+    },
+    "solwezi": {
+      "name": "Solwezi",
+      "country": "ZM",
+      "ll": [
+        -12.18,
+        26.4
+      ],
+      "label": "l",
+      "small": true
+    },
+    "mazabuka": {
+      "name": "Mazabuka",
+      "country": "ZM",
+      "ll": [
+        -15.86,
+        27.75
+      ],
+      "label": "l",
+      "zoom": 1
+    },
+    "choma": {
+      "name": "Choma",
+      "country": "ZM",
+      "ll": [
+        -16.81,
+        26.98
+      ],
+      "label": "l",
+      "zoom": 1
+    },
+    "livingstone": {
+      "name": "Livingstone",
+      "country": "ZM",
+      "ll": [
+        -17.8519,
+        25.8285
+      ],
+      "label": "r",
+      "small": true
+    },
+    "mongu": {
+      "name": "Mongu",
+      "country": "ZM",
+      "ll": [
+        -15.25,
+        23.13
+      ],
+      "label": "l"
+    },
+    "serenje": {
+      "name": "Serenje",
+      "country": "ZM",
+      "ll": [
+        -13.23,
+        30.23
+      ],
+      "label": "b",
+      "small": true
+    },
+    "mpika": {
+      "name": "Mpika",
+      "country": "ZM",
+      "ll": [
+        -11.83,
+        31.45
+      ],
+      "label": "r",
+      "small": true
+    },
+    "kasama": {
+      "name": "Kasama",
+      "country": "ZM",
+      "ll": [
+        -10.21,
+        31.18
+      ],
+      "label": "l"
+    },
+    "chipata": {
+      "name": "Chipata",
+      "country": "ZM",
+      "ll": [
+        -13.6333,
+        32.65
+      ],
+      "label": "b",
+      "small": true
+    },
+    "johannesburg": {
+      "name": "Johannesburg",
+      "country": "ZA",
+      "ll": [
+        -26.2041,
+        28.0473
+      ],
+      "label": "r"
+    },
+    "pretoria": {
+      "name": "Pretoria",
+      "country": "ZA",
+      "ll": [
+        -25.7479,
+        28.2293
+      ],
+      "label": "t",
+      "zoom": 1
+    },
+    "rustenburg": {
+      "name": "Rustenburg",
+      "country": "ZA",
+      "ll": [
+        -25.67,
+        27.24
+      ],
+      "label": "l",
+      "zoom": 1
+    },
+    "polokwane": {
+      "name": "Polokwane",
+      "country": "ZA",
+      "ll": [
+        -23.9,
+        29.45
+      ],
+      "label": "t",
+      "region": "limpopo"
+    },
+    "musina": {
+      "name": "Musina",
+      "country": "ZA",
+      "ll": [
+        -22.35,
+        30.04
+      ],
+      "label": "l",
+      "zoom": 2,
+      "region": "limpopo"
+    },
+    "thohoyandou": {
+      "name": "Thohoyandou",
+      "country": "ZA",
+      "ll": [
+        -22.95,
+        30.48
+      ],
+      "label": "r",
+      "zoom": 2,
+      "region": "limpopo"
+    },
+    "tzaneen": {
+      "name": "Tzaneen",
+      "country": "ZA",
+      "ll": [
+        -23.83,
+        30.16
+      ],
+      "label": "r",
+      "zoom": 2,
+      "region": "limpopo"
+    },
+    "mokopane": {
+      "name": "Mokopane",
+      "country": "ZA",
+      "ll": [
+        -24.19,
+        29.01
+      ],
+      "label": "l",
+      "zoom": 2,
+      "region": "limpopo"
+    },
+    "lephalale": {
+      "name": "Lephalale",
+      "country": "ZA",
+      "ll": [
+        -23.67,
+        27.7
+      ],
+      "label": "l",
+      "zoom": 2,
+      "region": "limpopo"
+    },
+    "mbombela": {
+      "name": "Mbombela",
+      "country": "ZA",
+      "ll": [
+        -25.47,
+        30.97
+      ],
+      "label": "t",
+      "small": true
+    },
+    "bloemfontein": {
+      "name": "Bloemfontein",
+      "country": "ZA",
+      "ll": [
+        -29.12,
+        26.21
+      ],
+      "label": "r"
+    },
+    "durban": {
+      "name": "Durban",
+      "country": "ZA",
+      "ll": [
+        -29.8587,
+        31.0218
+      ],
+      "label": "r",
+      "port": true
+    },
+    "gqeberha": {
+      "name": "Gqeberha",
+      "country": "ZA",
+      "ll": [
+        -33.96,
+        25.6
+      ],
+      "label": "r",
+      "port": true
+    },
+    "capetown": {
+      "name": "Cape Town",
+      "country": "ZA",
+      "ll": [
+        -33.9249,
+        18.4241
+      ],
+      "label": "r",
+      "port": true
+    },
+    "lubumbashi": {
+      "name": "Lubumbashi",
+      "country": "CD",
+      "ll": [
+        -11.6609,
+        27.4794
+      ],
+      "label": "t"
+    },
+    "harare": {
+      "name": "Harare",
+      "country": "ZW",
+      "ll": [
+        -17.8252,
+        31.0335
+      ],
+      "label": "r"
+    },
+    "gaborone": {
+      "name": "Gaborone",
+      "country": "BW",
+      "ll": [
+        -24.6282,
+        25.9231
+      ],
+      "label": "l"
+    },
+    "francistown": {
+      "name": "Francistown",
+      "country": "BW",
+      "ll": [
+        -21.17,
+        27.51
+      ],
+      "label": "r",
+      "small": true
+    },
+    "windhoek": {
+      "name": "Windhoek",
+      "country": "NA",
+      "ll": [
+        -22.5609,
+        17.0658
+      ],
+      "label": "r"
+    },
+    "walvisbay": {
+      "name": "Walvis Bay",
+      "country": "NA",
+      "ll": [
+        -22.9576,
+        14.5053
+      ],
+      "label": "b",
+      "port": true
+    },
+    "grootfontein": {
+      "name": "Grootfontein",
+      "country": "NA",
+      "ll": [
+        -19.566,
+        18.116
+      ],
+      "label": "r",
+      "minor": true
+    },
+    "dar": {
+      "name": "Dar es Salaam",
+      "country": "TZ",
+      "ll": [
+        -6.7924,
+        39.2083
+      ],
+      "label": "l",
+      "port": true
+    },
+    "beira": {
+      "name": "Beira",
+      "country": "MZ",
+      "ll": [
+        -19.8436,
+        34.8389
+      ],
+      "label": "r",
+      "port": true
+    },
+    "maputo": {
+      "name": "Maputo",
+      "country": "MZ",
+      "ll": [
+        -25.9692,
+        32.5732
+      ],
+      "label": "r",
+      "port": true
+    },
+    "nacala": {
+      "name": "Nacala",
+      "country": "MZ",
+      "ll": [
+        -14.5626,
+        40.6854
+      ],
+      "label": "b",
+      "port": true
+    },
+    "lilongwe": {
+      "name": "Lilongwe",
+      "country": "MW",
+      "ll": [
+        -13.9626,
+        33.7741
+      ],
+      "label": "r"
+    }
+  },
+  "borders": {
+    "kasumbalesa": {
+      "name": "Kasumbalesa",
+      "pair": [
+        "ZM",
+        "CD"
+      ],
+      "ll": [
+        -12.255,
+        27.795
+      ],
+      "label": "r"
+    },
+    "chirundu": {
+      "name": "Chirundu",
+      "pair": [
+        "ZM",
+        "ZW"
+      ],
+      "ll": [
+        -16.035,
+        28.85
+      ],
+      "label": "rb",
+      "osbp": true
+    },
+    "beitbridge": {
+      "name": "Beitbridge",
+      "pair": [
+        "ZW",
+        "ZA"
+      ],
+      "ll": [
+        -22.217,
+        30
+      ],
+      "label": "r"
+    },
+    "kazungula": {
+      "name": "Kazungula",
+      "pair": [
+        "ZM",
+        "BW"
+      ],
+      "ll": [
+        -17.79,
+        25.265
+      ],
+      "label": "b",
+      "osbp": true
+    },
+    "katima": {
+      "name": "Katima Mulilo",
+      "pair": [
+        "ZM",
+        "NA"
+      ],
+      "ll": [
+        -17.48,
+        24.29
+      ],
+      "label": "t"
+    },
+    "nakonde": {
+      "name": "Nakonde",
+      "pair": [
+        "ZM",
+        "TZ"
+      ],
+      "ll": [
+        -9.33,
+        32.76
+      ],
+      "label": "r"
+    },
+    "mwami": {
+      "name": "Mwami",
+      "pair": [
+        "ZM",
+        "MW"
+      ],
+      "ll": [
+        -13.7,
+        32.84
+      ],
+      "label": "t"
+    },
+    "lebombo": {
+      "name": "Lebombo",
+      "pair": [
+        "ZA",
+        "MZ"
+      ],
+      "ll": [
+        -25.44,
+        31.98
+      ],
+      "label": "t"
+    },
+    "kopfontein": {
+      "name": "Kopfontein",
+      "pair": [
+        "ZA",
+        "BW"
+      ],
+      "ll": [
+        -24.64,
+        26.07
+      ],
+      "label": "r"
+    },
+    "forbes": {
+      "name": "Forbes",
+      "pair": [
+        "ZW",
+        "MZ"
+      ],
+      "ll": [
+        -18.99,
+        32.72
+      ],
+      "label": "r"
+    },
+    "mandimba": {
+      "name": "Mandimba",
+      "pair": [
+        "MW",
+        "MZ"
+      ],
+      "ll": [
+        -14.35,
+        35.64
+      ],
+      "label": "r"
+    },
+    "mamuno": {
+      "name": "Mamuno",
+      "pair": [
+        "NA",
+        "BW"
+      ],
+      "ll": [
+        -22.28,
+        19.99
+      ],
+      "label": "r"
+    },
+    "pioneer": {
+      "name": "Pioneer Gate",
+      "pair": [
+        "BW",
+        "ZA"
+      ],
+      "ll": [
+        -25.27,
+        25.73
+      ],
+      "label": "r"
+    }
+  },
+  "roads": [
+    {
+      "from": "chingola",
+      "to": "kitwe",
+      "km": 50,
+      "via": []
+    },
+    {
+      "from": "solwezi",
+      "to": "chingola",
+      "km": 180,
+      "via": [
+        [
+          -12.36,
+          26.9
+        ]
+      ]
+    },
+    {
+      "from": "kitwe",
+      "to": "ndola",
+      "km": 60,
+      "via": []
+    },
+    {
+      "from": "ndola",
+      "to": "kapiri",
+      "km": 120,
+      "via": []
+    },
+    {
+      "from": "kapiri",
+      "to": "kabwe",
+      "km": 60,
+      "via": []
+    },
+    {
+      "from": "kabwe",
+      "to": "lusaka",
+      "km": 140,
+      "via": []
+    },
+    {
+      "from": "kapiri",
+      "to": "serenje",
+      "km": 250,
+      "via": [
+        [
+          -13.62,
+          29.39
+        ]
+      ]
+    },
+    {
+      "from": "serenje",
+      "to": "mpika",
+      "km": 200,
+      "via": [
+        [
+          -12.55,
+          30.85
+        ]
+      ]
+    },
+    {
+      "from": "mpika",
+      "to": "kasama",
+      "km": 210,
+      "via": [
+        [
+          -10.95,
+          31.3
+        ]
+      ]
+    },
+    {
+      "from": "lusaka",
+      "to": "mazabuka",
+      "km": 125,
+      "via": [
+        [
+          -15.77,
+          28.18
+        ]
+      ]
+    },
+    {
+      "from": "mazabuka",
+      "to": "choma",
+      "km": 165,
+      "via": [
+        [
+          -16.28,
+          27.47
+        ]
+      ]
+    },
+    {
+      "from": "choma",
+      "to": "livingstone",
+      "km": 190,
+      "via": []
+    },
+    {
+      "from": "lusaka",
+      "to": "mongu",
+      "km": 590,
+      "via": [
+        [
+          -14.98,
+          27.06
+        ],
+        [
+          -14.95,
+          25.92
+        ],
+        [
+          -14.8,
+          24.8
+        ]
+      ]
+    },
+    {
+      "from": "lusaka",
+      "to": "chipata",
+      "km": 570,
+      "via": [
+        [
+          -15.08,
+          29.63
+        ],
+        [
+          -15,
+          30.22
+        ],
+        [
+          -14.56,
+          30.81
+        ],
+        [
+          -14.24,
+          31.33
+        ],
+        [
+          -14.06,
+          32.05
+        ]
+      ]
+    },
+    {
+      "from": "lusaka",
+      "to": "harare",
+      "km": 485,
+      "via": [
+        [
+          -15.77,
+          28.18
+        ],
+        "chirundu",
+        [
+          -16.81,
+          29.69
+        ],
+        [
+          -17.36,
+          30.2
+        ]
+      ]
+    },
+    {
+      "from": "harare",
+      "to": "musina",
+      "km": 595,
+      "via": [
+        [
+          -20.07,
+          30.83
+        ],
+        "beitbridge"
+      ]
+    },
+    {
+      "from": "musina",
+      "to": "polokwane",
+      "km": 200,
+      "via": [
+        [
+          -23.04,
+          29.9
+        ]
+      ]
+    },
+    {
+      "from": "musina",
+      "to": "thohoyandou",
+      "km": 170,
+      "via": [
+        [
+          -23.04,
+          29.9
+        ]
+      ]
+    },
+    {
+      "from": "polokwane",
+      "to": "tzaneen",
+      "km": 100,
+      "via": [
+        [
+          -23.94,
+          29.94
+        ]
+      ]
+    },
+    {
+      "from": "polokwane",
+      "to": "mokopane",
+      "km": 60,
+      "via": []
+    },
+    {
+      "from": "mokopane",
+      "to": "lephalale",
+      "km": 150,
+      "via": [
+        [
+          -24.1,
+          28.4
+        ]
+      ]
+    },
+    {
+      "from": "livingstone",
+      "to": "francistown",
+      "km": 570,
+      "via": [
+        "kazungula",
+        [
+          -18.53,
+          25.63
+        ],
+        [
+          -20.21,
+          26.18
+        ]
+      ]
+    },
+    {
+      "from": "francistown",
+      "to": "gaborone",
+      "km": 440,
+      "via": [
+        [
+          -22.55,
+          27.13
+        ],
+        [
+          -23.1,
+          26.82
+        ]
+      ]
+    },
+    {
+      "from": "gaborone",
+      "to": "rustenburg",
+      "km": 240,
+      "via": [
+        "kopfontein",
+        [
+          -25.6,
+          26.6
+        ]
+      ]
+    },
+    {
+      "from": "mokopane",
+      "to": "pretoria",
+      "km": 200,
+      "via": [
+        [
+          -24.88,
+          28.29
+        ]
+      ]
+    },
+    {
+      "from": "pretoria",
+      "to": "johannesburg",
+      "km": 60,
+      "via": []
+    },
+    {
+      "from": "rustenburg",
+      "to": "johannesburg",
+      "km": 120,
+      "via": []
+    },
+    {
+      "from": "johannesburg",
+      "to": "durban",
+      "km": 570,
+      "via": [
+        [
+          -28.27,
+          29.13
+        ],
+        [
+          -29.6,
+          30.38
+        ]
+      ]
+    },
+    {
+      "from": "johannesburg",
+      "to": "bloemfontein",
+      "km": 400,
+      "via": [
+        [
+          -27.65,
+          27.23
+        ]
+      ]
+    },
+    {
+      "from": "bloemfontein",
+      "to": "capetown",
+      "km": 1000,
+      "via": [
+        [
+          -30.72,
+          25.1
+        ],
+        [
+          -32.35,
+          22.58
+        ],
+        [
+          -33.65,
+          19.44
+        ]
+      ]
+    },
+    {
+      "from": "bloemfontein",
+      "to": "gqeberha",
+      "km": 680,
+      "via": [
+        [
+          -30.72,
+          25.1
+        ],
+        [
+          -32.17,
+          25.62
+        ]
+      ]
+    },
+    {
+      "from": "johannesburg",
+      "to": "mbombela",
+      "km": 350,
+      "via": [
+        [
+          -25.87,
+          29.23
+        ]
+      ]
+    },
+    {
+      "from": "lubumbashi",
+      "to": "chingola",
+      "km": 155,
+      "via": [
+        "kasumbalesa",
+        [
+          -12.37,
+          27.83
+        ]
+      ]
+    },
+    {
+      "from": "mpika",
+      "to": "dar",
+      "km": 1320,
+      "via": [
+        [
+          -10.16,
+          32.64
+        ],
+        "nakonde",
+        [
+          -8.9,
+          33.45
+        ],
+        [
+          -7.77,
+          35.69
+        ],
+        [
+          -6.82,
+          37.66
+        ]
+      ]
+    },
+    {
+      "from": "mbombela",
+      "to": "maputo",
+      "km": 200,
+      "via": [
+        "lebombo"
+      ]
+    },
+    {
+      "from": "livingstone",
+      "to": "grootfontein",
+      "km": 960,
+      "via": [
+        [
+          -17.6,
+          25
+        ],
+        "katima",
+        [
+          -17.79,
+          23.36
+        ],
+        [
+          -18.1,
+          21.53
+        ],
+        [
+          -17.92,
+          19.77
+        ]
+      ]
+    },
+    {
+      "from": "grootfontein",
+      "to": "walvisbay",
+      "km": 580,
+      "via": [
+        [
+          -19.64,
+          17.34
+        ],
+        [
+          -20.46,
+          16.65
+        ],
+        [
+          -21.43,
+          15.95
+        ],
+        [
+          -22.68,
+          14.53
+        ]
+      ]
+    },
+    {
+      "from": "grootfontein",
+      "to": "windhoek",
+      "km": 460,
+      "via": [
+        [
+          -19.64,
+          17.34
+        ],
+        [
+          -20.46,
+          16.65
+        ],
+        [
+          -21.98,
+          16.91
+        ]
+      ]
+    },
+    {
+      "from": "walvisbay",
+      "to": "windhoek",
+      "km": 390,
+      "via": [
+        [
+          -22.68,
+          14.53
+        ],
+        [
+          -21.94,
+          15.85
+        ],
+        [
+          -21.98,
+          16.91
+        ]
+      ]
+    },
+    {
+      "from": "windhoek",
+      "to": "rustenburg",
+      "km": 1300,
+      "via": [
+        [
+          -22.45,
+          18.97
+        ],
+        "mamuno",
+        [
+          -21.7,
+          21.65
+        ],
+        [
+          -23.68,
+          22.8
+        ],
+        [
+          -24.6,
+          24.73
+        ],
+        [
+          -25.22,
+          25.68
+        ],
+        "pioneer",
+        [
+          -25.54,
+          26.08
+        ]
+      ]
+    },
+    {
+      "from": "harare",
+      "to": "beira",
+      "km": 565,
+      "via": [
+        [
+          -18.19,
+          31.55
+        ],
+        [
+          -18.53,
+          32.13
+        ],
+        [
+          -18.97,
+          32.67
+        ],
+        "forbes",
+        [
+          -19.12,
+          33.48
+        ]
+      ]
+    },
+    {
+      "from": "chipata",
+      "to": "lilongwe",
+      "km": 140,
+      "via": [
+        "mwami"
+      ]
+    },
+    {
+      "from": "lilongwe",
+      "to": "nacala",
+      "km": 1000,
+      "via": [
+        [
+          -14.37,
+          34.33
+        ],
+        [
+          -14.82,
+          34.64
+        ],
+        [
+          -14.98,
+          34.95
+        ],
+        [
+          -15.06,
+          35.23
+        ],
+        "mandimba",
+        [
+          -14.8,
+          36.54
+        ],
+        [
+          -14.95,
+          37.4
+        ],
+        [
+          -15.12,
+          39.27
+        ]
+      ]
+    }
+  ],
+  "corridorGroups": [
+    {
+      "id": "zm",
+      "name": "Across Zambia",
+      "tag": "Operating"
+    },
+    {
+      "id": "sa",
+      "name": "South Africa",
+      "tag": "Coming soon"
+    }
+  ],
+  "corridors": [
+    {
+      "id": "copperbelt",
+      "group": "zm",
+      "name": "Copperbelt to Lusaka",
+      "path": [
+        "chingola",
+        "kitwe",
+        "ndola",
+        "kapiri",
+        "kabwe",
+        "lusaka"
+      ],
+      "note": "The main freight lane in the country, linking the mines and industry of the Copperbelt with Lusaka."
+    },
+    {
+      "id": "southern",
+      "group": "zm",
+      "name": "Lusaka to Livingstone",
+      "path": [
+        "lusaka",
+        "mazabuka",
+        "choma",
+        "livingstone"
+      ],
+      "note": "Southern Province on the T1, through the sugar belt at Mazabuka and on to Livingstone."
+    },
+    {
+      "id": "north",
+      "group": "zm",
+      "name": "Great North Road",
+      "path": [
+        "lusaka",
+        "kabwe",
+        "kapiri",
+        "serenje",
+        "mpika",
+        "kasama"
+      ],
+      "note": "North through Central and Muchinga provinces to Kasama and Northern Province."
+    },
+    {
+      "id": "east",
+      "group": "zm",
+      "name": "Great East Road",
+      "path": [
+        "lusaka",
+        "chipata"
+      ],
+      "note": "East across the Luangwa to Chipata and Eastern Province."
+    },
+    {
+      "id": "northwest",
+      "group": "zm",
+      "name": "North-Western mines",
+      "path": [
+        "lusaka",
+        "kabwe",
+        "kapiri",
+        "ndola",
+        "kitwe",
+        "chingola",
+        "solwezi"
+      ],
+      "note": "Supplies, food and equipment for the mining towns around Solwezi."
+    },
+    {
+      "id": "west",
+      "group": "zm",
+      "name": "Western Province",
+      "path": [
+        "lusaka",
+        "mongu"
+      ],
+      "note": "West on the M9 through Mumbwa and Kaoma to Mongu."
+    },
+    {
+      "id": "jhb-beitbridge",
+      "group": "sa",
+      "name": "Lusaka to Johannesburg",
+      "path": [
+        "lusaka",
+        "harare",
+        "musina",
+        "polokwane",
+        "mokopane",
+        "pretoria",
+        "johannesburg"
+      ],
+      "note": "The direct road south through Chirundu, Harare and Beitbridge, then down the N1 through Limpopo into Gauteng."
+    },
+    {
+      "id": "limpopo",
+      "group": "sa",
+      "name": "Lusaka to Polokwane, Limpopo",
+      "path": [
+        "lusaka",
+        "harare",
+        "musina",
+        "polokwane"
+      ],
+      "note": "Across Beitbridge into Limpopo, then on the N1 through Musina to Polokwane."
+    },
+    {
+      "id": "tzaneen",
+      "group": "sa",
+      "name": "Lusaka to Tzaneen, Limpopo",
+      "path": [
+        "lusaka",
+        "harare",
+        "musina",
+        "polokwane",
+        "tzaneen"
+      ],
+      "note": "To the fruit and vegetable farms around Tzaneen, where chilled transport matters most."
+    },
+    {
+      "id": "jhb-kazungula",
+      "group": "sa",
+      "name": "Lusaka to Johannesburg via Botswana",
+      "path": [
+        "lusaka",
+        "mazabuka",
+        "choma",
+        "livingstone",
+        "francistown",
+        "gaborone",
+        "rustenburg",
+        "johannesburg"
+      ],
+      "note": "Over the Kazungula Bridge through Botswana, the alternative when Beitbridge is congested."
+    }
+  ],
+  "lanes": [
+    {
+      "from": "kitwe",
+      "to": "lusaka"
+    },
+    {
+      "from": "lusaka",
+      "to": "polokwane",
+      "soon": true
+    },
+    {
+      "from": "lusaka",
+      "to": "livingstone"
+    },
+    {
+      "from": "lusaka",
+      "to": "chipata"
+    },
+    {
+      "from": "ndola",
+      "to": "lusaka"
+    },
+    {
+      "from": "lusaka",
+      "to": "kasama"
+    },
+    {
+      "from": "lusaka",
+      "to": "solwezi"
+    },
+    {
+      "from": "lusaka",
+      "to": "mongu"
+    },
+    {
+      "from": "kitwe",
+      "to": "livingstone"
+    },
+    {
+      "from": "lusaka",
+      "to": "mazabuka"
+    },
+    {
+      "from": "kabwe",
+      "to": "kitwe"
+    },
+    {
+      "from": "lusaka",
+      "to": "johannesburg",
+      "soon": true
+    }
+  ],
+  "aliases": {
+    "jhb": "johannesburg",
+    "joburg": "johannesburg",
+    "jozi": "johannesburg",
+    "gauteng": "johannesburg",
+    "midrand": "johannesburg",
+    "tshwane": "pretoria",
+    "pta": "pretoria",
+    "port elizabeth": "gqeberha",
+    "pe": "gqeberha",
+    "nelspruit": "mbombela",
+    "bloem": "bloemfontein",
+    "pietersburg": "polokwane",
+    "potgietersrus": "mokopane",
+    "louis": "makhado",
+    "limpopo": "polokwane",
+    "dar es salaam": "dar",
+    "dsm": "dar",
+    "cape town": "capetown",
+    "cpt": "capetown",
+    "walvis bay": "walvisbay",
+    "walvis": "walvisbay",
+    "dbn": "durban",
+    "kapiri mposhi": "kapiri"
+  }
+}

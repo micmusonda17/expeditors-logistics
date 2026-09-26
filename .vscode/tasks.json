@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "db: start", "type": "shell", "command": "docker compose up -d db", "problemMatcher": [] },
+    { "label": "api: migrate", "type": "shell", "command": "make migrate", "problemMatcher": [] },
+    { "label": "api: seed sample data", "type": "shell", "command": "make seed", "problemMatcher": [] },
+    {
+      "label": "web: dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "^$" },
+        "background": { "activeBegins": true, "beginsPattern": "VITE", "endsPattern": "Local:" }
+      }
+    },
+    { "label": "web: demo (no backend)", "type": "shell", "command": "npm run dev:demo", "options": { "cwd": "${workspaceFolder}/frontend" }, "isBackground": true, "problemMatcher": [] },
+    { "label": "test: all", "type": "shell", "command": "make test", "group": { "kind": "test", "isDefault": true }, "problemMatcher": [] },
+    { "label": "docker: full stack", "type": "shell", "command": "docker compose up --build", "isBackground": true, "problemMatcher": [] }
+  ]
+}

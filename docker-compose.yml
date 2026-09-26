@@ -1,0 +1,53 @@
+# Full stack on your machine:  docker compose up --build   ->  http://localhost:8080
+# Just the database (for running the API from VS Code):  docker compose up -d db
+name: expeditors
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: expeditors
+      POSTGRES_PASSWORD: expeditors
+      POSTGRES_DB: expeditors
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U expeditors"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://expeditors:expeditors@db:5432/expeditors
+      SECRET_KEY: ${SECRET_KEY:-dev-only-change-me-dev-only-change-me}
+      CORS_ORIGINS: http://localhost:5173,http://localhost:8080
+      PUBLIC_SITE_URL: http://localhost:8080
+      # Optional quote emails: put these in a .env file next to this one (see backend/.env.example).
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      NOTIFY_EMAIL: ${NOTIFY_EMAIL:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

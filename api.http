@@ -1,0 +1,60 @@
+### Try the API from VS Code with the REST Client extension (click "Send Request").
+@api = http://localhost:8000/api
+
+### Health
+GET {{api}}/health
+
+### Route between two towns
+GET {{api}}/network/route?from=Lusaka&to=Kasama
+
+### Public: submit a quote request
+POST {{api}}/quotes
+Content-Type: application/json
+
+{
+  "name": "Test Customer",
+  "phone": "+260 97 000 0000",
+  "pickup": "Lusaka",
+  "delivery": "Kitwe",
+  "cargo": "Chilled or frozen food",
+  "weight": 5,
+  "service": "One-off load"
+}
+
+### Public: track a load
+GET {{api}}/tracking/ELL-7K3Q9
+
+### Staff: sign in (create a user first with `make user`)
+# @name login
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "you@example.com", "password": "your-password" }
+
+### Staff: list quotes
+GET {{api}}/quotes
+Authorization: Bearer {{login.response.body.accessToken}}
+
+### Staff: list active loads
+GET {{api}}/loads?stage=active
+Authorization: Bearer {{login.response.body.accessToken}}
+
+### Leave a review (public; waits for approval)
+POST {{api}}/reviews
+Content-Type: application/json
+
+{ "name": "Grace Phiri", "company": "Phiri General Dealers", "town": "Chipata", "rating": 5, "comment": "Arrived on time and in good condition.", "contact": "+260 95 000 0404" }
+
+### Approved reviews (public)
+GET {{api}}/reviews
+
+### All reviews for moderation (staff)
+GET {{api}}/reviews/all?status=pending
+Authorization: Bearer {{login.response.body.accessToken}}
+
+### Approve a review (staff)
+PATCH {{api}}/reviews/1
+Authorization: Bearer {{login.response.body.accessToken}}
+Content-Type: application/json
+
+{ "status": "approved" }

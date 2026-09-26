@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { api, ApiError, type QuoteInput } from '../api';
-import { COMPANY, IS_DEMO } from '../config';
+import { COMPANY, CONTACT_EMAILS, IS_DEMO } from '../config';
 import { BORDERS, HUBS, daysText, describe, hubLabel, hubName, isComingSoon, isPublicHub, matchHub, routeBetween } from '../lib/network';
 import { fmt, smooth, todayISO, waLink } from '../lib/format';
 import { copyText } from '../lib/clipboard';
@@ -190,7 +190,7 @@ export function QuoteSection() {
 }
 
 function DonePanel({ done, onNew }: { done: Done; onNew(): void }) {
-  const email = COMPANY.emails.join(',');
+  const email = CONTACT_EMAILS.join(',');
   const mail = email ? `mailto:${email}?subject=${encodeURIComponent('Quote request ' + done.ref)}&body=${encodeURIComponent(done.summary)}` : '';
   return (
     <div className="done">

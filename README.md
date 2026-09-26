@@ -137,6 +137,14 @@ make lint     # Ruff
 
 Interactive docs at `/api/docs`.
 
+## Demo site on GitHub Pages
+
+A version of the website that runs on sample data, with no backend, for showing people. `.github/workflows/demo-site.yml` builds and publishes it on every push.
+
+1. In VS Code: Source Control > **Publish to GitHub** (choose a public repository; GitHub Pages is free for public repos, and `.env` files are never committed).
+2. On GitHub: repository **Settings > Pages > Source: GitHub Actions**.
+3. Push any change (or run the workflow from the Actions tab). The demo appears at `https://<username>.github.io/expeditors-logistics/`.
+
 ## Deploy
 
 **Render (simplest):** push this repository to GitHub, then in Render choose New > Blueprint and select it. `render.yaml` creates the database, the API and the website. Update `CORS_ORIGINS` and `VITE_API_URL` if you rename the services, then create your staff login from the API service's Shell tab:

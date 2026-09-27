@@ -4,12 +4,12 @@ import { digits, waLink } from '../lib/format';
 import { copyText } from '../lib/clipboard';
 import { IconCopy, IconMail, IconPhone, IconPin, IconWhatsApp } from '../components/Icons';
 
-function Card({ icon, label, values, small, children }: { icon: ReactNode; label: string; values: string[]; small?: boolean; children?: ReactNode }) {
+function Card({ icon, label, values, small, children }: { icon: ReactNode; label: string; values: ReactNode[]; small?: boolean; children?: ReactNode }) {
   return (
     <div className="cmethod">
       <div className="ci">{icon}</div>
       <div className="k">{label}</div>
-      {values.length ? values.map(v => <div className={'v' + (small ? ' sm' : '')} key={v}>{breakAt(v)}</div>) : <div className="v pending">Coming soon</div>}
+      {values.length ? values.map((v, i) => <div className={'v' + (small ? ' sm' : '')} key={i}>{typeof v === 'string' ? breakAt(v) : v}</div>) : <div className="v pending">Coming soon</div>}
       {children && <div className="row">{children}</div>}
     </div>
   );
@@ -20,6 +20,9 @@ const breakAt = (v: string) => {
   const i = v.indexOf('@');
   return i > 0 ? <>{v.slice(0, i)}<wbr />{v.slice(i)}</> : v;
 };
+
+// "Michael Musonda Sr." -> "Michael Sr.", "Lombe Maiba Musonda" -> "Lombe"
+const callName = (name: string) => name.split(/\s+/)[0] + (/\bSr\.?$/.test(name) ? ' Sr.' : '');
 
 const CopyBtn = ({ value }: { value: string }) => (
   <button type="button" className="linkbtn" onClick={() => copyText(value)}><IconCopy />Copy</button>
@@ -43,8 +46,8 @@ export function Contact() {
           <Card icon={<IconWhatsApp />} label="WhatsApp" values={waDisplay ? [waDisplay] : []}>
             {wa && <><a className="linkbtn" href={waLink('Hello Expeditors, I would like a quote.')} target="_blank" rel="noopener">Open chat</a><CopyBtn value={waDisplay} /></>}
           </Card>
-          <Card icon={<IconPhone />} label="Phone" values={COMPANY.phones.map(p => p.display)}>
-            {COMPANY.phones.map(p => <a key={p.dial} className="linkbtn" href={`tel:${p.dial}`}>Call {p.display.slice(-4)}</a>)}
+          <Card icon={<IconPhone />} label="Phone" values={COMPANY.phones.map(p => <>{p.display}<small>{p.name}</small></>)}>
+            {COMPANY.phones.map(p => <a key={p.dial} className="linkbtn" href={`tel:${p.dial}`} aria-label={`Call ${p.name} on ${p.display}`}>Call {callName(p.name)}</a>)}
           </Card>
           <Card icon={<IconMail />} label="Email" values={CONTACT_EMAILS} small>
             {CONTACT_EMAILS.length > 0 && <a className="linkbtn" href={`mailto:${CONTACT_EMAILS.join(',')}`}>Email us</a>}

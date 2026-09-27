@@ -11,12 +11,14 @@ export const COMPANY = {
   // Google Maps link to the exact pin (Share > Copy link in Google Maps). Empty: search by address.
   mapsUrl: '',
 
+  // Contact numbers, main number first. `name` is shown under each number.
   phones: [
-    { display: '+260 97 271 5121', dial: '+260972715121' },
-    { display: '+260 57 240 3698', dial: '+260572403698' }
+    { display: '+260 57 240 3698', dial: '+260572403698', name: 'Michael Musonda Sr.' },
+    { display: '+260 97 520 3889', dial: '+260975203889', name: 'Lombe Maiba Musonda' },
+    { display: '+260 97 361 7177', dial: '+260973617177', name: 'Mutale Musonda' }
   ],
-  // Digits only with country code. CONFIRM which number has WhatsApp.
-  whatsapp: '260972715121',
+  // Main WhatsApp number: digits only with country code. Used by every WhatsApp button on the site.
+  whatsapp: '260572403698',
   // Main company inbox: the only address on the
   // Contact section and the one quote requests are emailed to.
   email: 'expeditorsafrica@gmail.com',

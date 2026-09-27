@@ -466,6 +466,8 @@ section{scroll-margin-top:76px}
 .cmethod .ci svg{width:21px;height:21px}
 .cmethod .k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8FA3C6}
 .cmethod .v{font-size:17px;font-weight:600;color:#fff;word-break:break-word;user-select:all}
+.cmethod .v small{display:block;font-size:12.5px;font-weight:500;color:#8FA3C6;margin-top:1px;user-select:none}
+.cmethod .v + .v small{margin-bottom:2px}
 .cmethod .v.sm{font-size:15px;line-height:1.45;word-break:normal;overflow-wrap:anywhere}
 .cmethod .v.pending{color:#8FA3C6;font-weight:500;font-size:15px;user-select:auto}
 .cmethod .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}

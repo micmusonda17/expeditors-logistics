@@ -84,6 +84,7 @@ export const TEAM: TeamMember[] = [
     role: 'Head of Sales and Advertising',
     alsoRole: 'Technical Operations Lead',
     bio: 'Looks after our customers and advertising, and runs the systems behind quotes, bookings and load tracking.',
+    photo: 'assets/img/team/mutale.jpg',
     phone: '+260 97 361 7177',
     whatsapp: true
   },

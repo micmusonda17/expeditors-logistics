@@ -71,7 +71,7 @@ export const TEAM: TeamMember[] = [
     whatsapp: true
   },
   {
-    name: 'Lombe Maiba',
+    name: 'Lombe Maiba Musonda',
     role: 'Deputy Managing Director',
     bio: 'Works alongside the Managing Director to run the business day to day and keep every load on schedule.',
     photo: 'assets/img/team/lombe.jpg',

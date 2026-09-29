@@ -4,6 +4,7 @@ import { ago, money } from '../lib/format';
 import { createMap, type SouthernMap } from '../map/SouthernMap';
 import { statusClass, useAdmin } from './AdminContext';
 import { laneOf } from './shared';
+import { navigate } from '../lib/router';
 
 const DAY = 864e5;
 const t = (iso: string) => new Date(iso).getTime();
@@ -34,7 +35,7 @@ export function Dashboard() {
   const svgRef = useRef<SVGSVGElement>(null);
   const mapRef = useRef<SouthernMap | null>(null);
   useEffect(() => {
-    const m = createMap(svgRef.current!, { unitBoost: 1.1, local: true, onPin: refs => (refs.length === 1 ? openLoad(refs[0]) : (location.hash = '#admin-loads')) });
+    const m = createMap(svgRef.current!, { unitBoost: 1.1, local: true, onPin: refs => (refs.length === 1 ? openLoad(refs[0]) : navigate({ page: 'admin', view: 'loads' })) });
     m.view([[-26.9, 21.6], [-8.2, 33.9]], { animate: false });
     mapRef.current = m;
     return () => m.destroy();

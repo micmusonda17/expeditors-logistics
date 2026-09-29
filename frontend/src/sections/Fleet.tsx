@@ -1,16 +1,19 @@
 import { TruckArt } from '../components/TruckArt';
+import { Link } from '../lib/router';
 
-export function Fleet() {
+export function Fleet({ head = true }: { head?: boolean } = {}) {
   return (
-    <section className="section" id="fleet" aria-labelledby="fleet-title">
+    <section className="section" id="fleet" aria-labelledby={head ? 'fleet-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Fleet</p>
-            <h2 id="fleet-title" className="display">The trucks</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Fleet</p>
+              <h2 id="fleet-title" className="display">The trucks</h2>
+            </div>
+            <p className="lede">Refrigerated and containerised trucks from 2 to 5 tonnes, all kept in excellent condition and driven by experienced, licensed drivers. If a truck develops a problem while loaded, another truck from our fleet takes over so your goods keep moving.</p>
           </div>
-          <p className="lede">Refrigerated and containerised trucks from 2 to 5 tonnes, all kept in excellent condition and driven by experienced, licensed drivers. If a truck develops a problem while loaded, another truck from our fleet takes over so your goods keep moving.</p>
-        </div>
+        )}
         <div className="fleet-grid">
           <article className="truck">
             <div className="truck-pic"><TruckArt kind="reefer" /></div>
@@ -28,7 +31,7 @@ export function Fleet() {
             <div className="truck-pic"><TruckArt kind="semi" /></div>
             <h3>Bigger loads</h3>
             <p>Moving more than 5 tonnes, or several loads at once? Tell us the cargo and weight and we will split it across our trucks or come back with other options.</p>
-            <a className="btn btn-ghost btn-sm" href="#quote">Ask about a bigger load</a>
+            <Link className="btn btn-ghost btn-sm" to={{ page: 'quote' }}>Ask about a bigger load</Link>
           </article>
         </div>
       </div>

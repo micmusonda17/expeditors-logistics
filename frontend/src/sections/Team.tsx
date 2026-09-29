@@ -1,5 +1,6 @@
 import { COMPANY, TEAM, type TeamMember } from '../config';
 import { digits, firstName } from '../lib/format';
+import { asset } from '../lib/router';
 import { IconMail, IconPhone, IconWhatsApp } from '../components/Icons';
 
 const initials = (name: string) => {
@@ -10,7 +11,7 @@ const initials = (name: string) => {
 function Portrait({ m }: { m: TeamMember }) {
   return (
     <div className={'team-pic' + (m.photo ? '' : ' mono')}>
-      {m.photo ? <img src={m.photo} alt={`Portrait of ${m.name}`} loading="lazy" /> : <span className="team-initials" aria-hidden>{initials(m.name)}</span>}
+      {m.photo ? <img src={asset(m.photo)} alt={`Portrait of ${m.name}`} loading="lazy" /> : <span className="team-initials" aria-hidden>{initials(m.name)}</span>}
       {m.founder && <b className="team-badge">Founder<span> · {COMPANY.founded}</span></b>}
     </div>
   );

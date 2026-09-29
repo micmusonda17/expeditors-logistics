@@ -3,6 +3,7 @@ import { BORDERS, HUBS, LANES, daysText, describe, hubName, isComingSoon, isPubl
 import { fmt } from '../lib/format';
 import { COMPANY } from '../config';
 import { useSite } from '../site/SiteContext';
+import { Link, asset } from '../lib/router';
 import { BorderChips } from '../components/BorderChips';
 import { IconArrow, IconSwap } from '../components/Icons';
 
@@ -88,8 +89,8 @@ export function Hero() {
             <h1 id="hero-title" className="display">Road freight across Zambia, <span className="red">chilled or dry.</span></h1>
             <p className="lede">Expeditors Logistics is a family-owned trucking company based in Lusaka, on the road since {COMPANY.founded}. Our refrigerated and containerised trucks deliver all kinds of goods, chilled, frozen or dry, across Zambia: from the Copperbelt to Livingstone, Chipata, Kasama and Mongu. Trips to South Africa are coming soon.</p>
             <div className="hero-actions">
-              <a className="btn btn-red" href="#quote">Get a quote <IconArrow /></a>
-              <a className="btn btn-ghost" href="#track">Track a load</a>
+              <Link className="btn btn-red" to={{ page: 'quote' }}>Get a quote <IconArrow /></Link>
+              <Link className="btn btn-ghost" to={{ page: 'track' }}>Track a load</Link>
             </div>
             <div className="coverage" aria-label="Where we operate">
               <span className="coverage-label">Operating across</span><span className="cc home" title="Zambia">ZM</span>
@@ -98,7 +99,7 @@ export function Hero() {
           </div>
           <div className="hero-art" aria-hidden>
             <span className="speed s1" /><span className="speed s2" /><span className="speed s3" />
-            <img src="assets/img/emblem.png" alt="" width={916} height={314} />
+            <img src={asset('assets/img/emblem.png')} alt="" width={916} height={314} />
           </div>
         </div>
         <Planner />

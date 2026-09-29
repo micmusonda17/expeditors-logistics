@@ -100,7 +100,9 @@ export const TEAM: TeamMember[] = [
   }
 ];
 
-// `vite --mode demo` (npm run dev:demo / build:demo) or VITE_API_MODE=demo switch to the in-browser sample backend.
-export const API_MODE: 'live' | 'demo' = import.meta.env.MODE === 'demo' || import.meta.env.VITE_API_MODE === 'demo' ? 'demo' : 'live';
+// `vite --mode demo` (npm run dev:demo / build:demo), the one-file preview build or VITE_API_MODE=demo
+// switch to the in-browser sample backend.
+export const API_MODE: 'live' | 'demo' =
+  import.meta.env.MODE === 'demo' || import.meta.env.MODE === 'preview' || import.meta.env.VITE_API_MODE === 'demo' ? 'demo' : 'live';
 export const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 export const IS_DEMO = API_MODE === 'demo';

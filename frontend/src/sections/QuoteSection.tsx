@@ -5,6 +5,7 @@ import { BORDERS, HUBS, daysText, describe, hubLabel, hubName, isComingSoon, isP
 import { fmt, smooth, todayISO, waLink } from '../lib/format';
 import { copyText } from '../lib/clipboard';
 import { useSite } from '../site/SiteContext';
+import { Link } from '../lib/router';
 import { BorderChips } from '../components/BorderChips';
 import { IconArrow, IconChat, IconCheck, IconClock } from '../components/Icons';
 import { toast } from '../components/Toast';
@@ -46,7 +47,7 @@ function summaryText(f: Form, ref: string, km: number, borders: string[]) {
 
 interface Done { ref: string; summary: string; received: boolean; error?: string }
 
-export function QuoteSection() {
+export function QuoteSection({ head = true }: { head?: boolean } = {}) {
   const { quotePrefill } = useSite();
   const [form, setForm] = useState<Form>(EMPTY);
   const [invalid, setInvalid] = useState<Partial<Record<Field, boolean>>>({});
@@ -110,15 +111,17 @@ export function QuoteSection() {
   const n = est?.info.borders.length ?? 0;
 
   return (
-    <section className="section" id="quote" aria-labelledby="quote-title">
+    <section className="section" id="quote" aria-labelledby={head ? 'quote-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Quote</p>
-            <h2 id="quote-title" className="display">Request a quote</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Quote</p>
+              <h2 id="quote-title" className="display">Request a quote</h2>
+            </div>
+            <p className="lede">The more we know about the load, the faster and more accurate the rate. Fields marked * are required.</p>
           </div>
-          <p className="lede">The more we know about the load, the faster and more accurate the rate. Fields marked * are required.</p>
-        </div>
+        )}
         <div className="quote-grid">
           <div className="panel" ref={panelRef}>
             {!done ? (
@@ -206,7 +209,7 @@ function DonePanel({ done, onNew }: { done: Done; onNew(): void }) {
         </div>
       </div>
       {done.error && <p className="notice">{done.error}</p>}
-      {IS_DEMO && !done.error && <p className="notice">Preview: this request has also been added to the sample operations portal, so you can see how the team receives it. <a href="#admin">Open the portal</a></p>}
+      {IS_DEMO && !done.error && <p className="notice">Preview: this request has also been added to the sample operations portal, so you can see how the team receives it. <Link to={{ page: 'admin', view: 'quotes' }}>Open the portal</Link></p>}
       <pre className="summary">{done.summary}</pre>
       <div className="done-actions">
         {COMPANY.whatsapp && <a className="btn btn-wa" href={waLink(done.summary)} target="_blank" rel="noopener">{done.received ? 'Also send on WhatsApp' : 'Send on WhatsApp'}</a>}

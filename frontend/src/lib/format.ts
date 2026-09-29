@@ -1,4 +1,5 @@
 import { COMPANY } from '../config';
+import { absoluteHref } from './router';
 
 export const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
 export const digits = (s: unknown) => String(s ?? '').replace(/\D/g, '');
@@ -52,8 +53,5 @@ export function toIntl(phone: string, fromCountry: 'ZM' | 'ZA' = 'ZM') {
   return n;
 }
 
-export function siteBase() {
-  if (COMPANY.siteUrl) return COMPANY.siteUrl.replace(/\/$/, '') + '/';
-  return location.href.split('#')[0];
-}
-export const trackingLink = (ref: string) => `${siteBase()}#track-${ref}`;
+/** Link a customer can open to follow their load, e.g. https://example.com/track/ELL-7K3Q9 */
+export const trackingLink = (ref: string) => absoluteHref({ page: 'track', track: ref }, COMPANY.siteUrl);

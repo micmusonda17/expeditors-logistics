@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { api, ApiError, type User } from '../api';
 import { COMPANY, IS_DEMO } from '../config';
+import { Link, asset } from '../lib/router';
 
 export function Login({ onSignedIn }: { onSignedIn(u: User): void }) {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ export function Login({ onSignedIn }: { onSignedIn(u: User): void }) {
   return (
     <div className="pt-login">
       <div className="pt-login-card">
-        <img src="assets/img/emblem.png" alt="" className="pt-login-art" width={916} height={314} />
+        <img src={asset('assets/img/emblem.png')} alt="" className="pt-login-art" width={916} height={314} />
         <p className="eyebrow">Operations portal</p>
         <h1 className="display">Staff sign in</h1>
         <p className="muted">Quotes, loads and tracking updates for the {COMPANY.shortName} team.</p>
@@ -36,7 +37,7 @@ export function Login({ onSignedIn }: { onSignedIn(u: User): void }) {
             <button className="btn btn-red" type="submit" disabled={busy}>{busy ? 'Signing in...' : 'Sign in'}</button>
           </form>
         )}
-        <a className="pt-link" href="#top">← Back to the website</a>
+        <Link className="pt-link" to={{ page: 'home' }}>← Back to the website</Link>
       </div>
     </div>
   );

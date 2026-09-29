@@ -79,7 +79,7 @@ function Waybill({ s }: { s: Tracking }) {
   );
 }
 
-export function TrackSection({ deepLink }: { deepLink?: string }) {
+export function TrackSection({ deepLink, head = true }: { deepLink?: string; head?: boolean }) {
   const [input, setInput] = useState('');
   const [state, setState] = useState<State>(() => (COMPANY.showSampleShipment ? { kind: 'found', s: sampleShipment() } : { kind: 'idle' }));
 
@@ -100,20 +100,25 @@ export function TrackSection({ deepLink }: { deepLink?: string }) {
   useEffect(() => {
     if (!deepLink) return;
     track(deepLink);
-    document.getElementById('track')?.scrollIntoView();
   }, [deepLink, track]);
 
   const tries = [COMPANY.showSampleShipment && 'ELL-SAMPLE', IS_DEMO && 'ELL-7K3Q9'].filter(Boolean) as string[];
   const submit = (e: FormEvent) => { e.preventDefault(); track(input); };
 
   return (
-    <section className="section track" id="track" aria-labelledby="track-title">
+    <section className="section track" id="track" aria-labelledby={head ? 'track-title' : undefined} aria-label={head ? undefined : 'Track a load'}>
       <div className="wrap track-grid">
         <div>
-          <p className="eyebrow">Tracking</p>
-          <h2 id="track-title" className="display" style={{ fontSize: 'clamp(2rem,4.2vw,3.25rem)', marginTop: 14 }}>Track a load</h2>
-          <p className="lede" style={{ marginTop: 16 }}>Enter the reference from your booking confirmation. Status is updated by our operations team as the truck moves.</p>
-          <form className="track-form" onSubmit={submit}>
+          {head ? (
+            <>
+              <p className="eyebrow">Tracking</p>
+              <h2 id="track-title" className="display" style={{ fontSize: 'clamp(2rem,4.2vw,3.25rem)', marginTop: 14 }}>Track a load</h2>
+              <p className="lede" style={{ marginTop: 16 }}>Enter the reference from your booking confirmation. Status is updated by our operations team as the truck moves.</p>
+            </>
+          ) : (
+            <h2 className="track-sub">Your load reference</h2>
+          )}
+          <form className={'track-form' + (head ? '' : ' flush')} onSubmit={submit}>
             <label className="sr-only" htmlFor="t-ref">Load reference</label>
             <input id="t-ref" placeholder="Load reference, e.g. ELL-24031" autoComplete="off" spellCheck={false} value={input} onChange={e => setInput(e.target.value)} />
             <button className="btn btn-red" type="submit">Track</button>
@@ -123,6 +128,17 @@ export function TrackSection({ deepLink }: { deepLink?: string }) {
               ? <>Try {tries.map((r, i) => <span key={r}>{i > 0 && ' or '}<button type="button" className="t-try" onClick={() => track(r)}><code>{r}</code></button></span>)}</>
               : 'Your reference starts with ELL and is on your booking confirmation.'}
           </p>
+          {!head && (
+            <div className="track-help">
+              <h3>Good to know</h3>
+              <ul>
+                <li>Your reference starts with ELL and is on your booking confirmation.</li>
+                <li>Once your load shows here, copy its tracking link and send it to whoever is receiving the goods.</li>
+                <li>Every stage is posted by our operations team as the truck moves, from booking to signed delivery.</li>
+              </ul>
+              {COMPANY.whatsapp && <a className="btn btn-wa btn-sm" href={waLink('Hello, I need an update on my load.')} target="_blank" rel="noopener">Ask on WhatsApp</a>}
+            </div>
+          )}
         </div>
         <div className="waybill" aria-live="polite">
           {state.kind === 'idle' && <div className="wb-empty"><h3>Enter a reference to see your load</h3><p>You will see the current stage, location, a map of the route and every update.</p></div>}

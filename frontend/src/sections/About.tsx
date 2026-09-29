@@ -3,20 +3,22 @@ import { IconFamily, IconPin, IconRoad, IconTruck } from '../components/Icons';
 import { TeamGrid } from './Team';
 
 /* The family story. Edit the paragraphs below freely. */
-export function About() {
+export function About({ head = true }: { head?: boolean } = {}) {
   const founder = TEAM.find(m => m.founder)?.name ?? COMPANY.director;
   return (
-    <section className="section about" id="about" aria-labelledby="about-title">
+    <section className="section about" id="about" aria-labelledby={head ? 'about-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">About us</p>
-            <h2 id="about-title" className="display">Started by a father, run by a family</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">About us</p>
+              <h2 id="about-title" className="display">Started by a father, run by a family</h2>
+            </div>
+            <p className="lede">{COMPANY.name} has been on the road since {COMPANY.founded}. This is how it began.</p>
           </div>
-          <p className="lede">{COMPANY.name} has been on the road since {COMPANY.founded}. This is how it began.</p>
-        </div>
+        )}
 
-        <div className="story-grid">
+        <div className="story-grid" id="story">
           <div className="story">
             <p className="story-lead">
               Expeditors Logistics began as {founder}&rsquo;s idea. He realised businesses deserved a transporter they

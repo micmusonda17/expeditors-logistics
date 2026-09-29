@@ -1,7 +1,7 @@
 /* Shared state for the public site: the planned route, what the map shows, and quote pre-filling. */
 import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
 import { CORRIDORS, HUBS, isPublicHub } from '../lib/network';
-import { smooth } from '../lib/format';
+import { navigate } from '../lib/router';
 
 export interface Selection {
   kind: 'plan' | 'map' | 'corridor';
@@ -55,7 +55,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
 
   const requestQuote = useCallback((from: string, to: string) => {
     setQuotePrefill({ from, to, nonce: next() });
-    document.getElementById('quote')?.scrollIntoView({ behavior: smooth() });
+    navigate({ page: 'quote' });
   }, []);
 
   const value = useMemo(

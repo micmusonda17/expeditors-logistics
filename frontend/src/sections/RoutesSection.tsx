@@ -21,7 +21,7 @@ function routeFor(sel: { kind: string; from: string; to: string; corridorId?: st
   return routeBetween(sel.from, sel.to)?.best ?? null;
 }
 
-export function RoutesSection() {
+export function RoutesSection({ head = true }: { head?: boolean } = {}) {
   const site = useSite();
   const { selection, mapFrom, setMapFrom, requestQuote } = site;
   const svgRef = useRef<SVGSVGElement>(null);
@@ -66,15 +66,17 @@ export function RoutesSection() {
   const picked = selection.kind === 'map' && mapFrom === selection.from && route;
 
   return (
-    <section className="section routes" id="routes" aria-labelledby="routes-title">
+    <section className="section routes" id="routes" aria-labelledby={head ? 'routes-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Routes · Zambia</p>
-            <h2 id="routes-title" className="display">Where we run</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Routes · Zambia</p>
+              <h2 id="routes-title" className="display">Where we run</h2>
+            </div>
+            <p className="lede">We run across Zambia, from the Copperbelt to Livingstone and from Mongu to Chipata. Trips to Limpopo, Pretoria and Johannesburg are coming soon. Pick a route, or click any town on the map.</p>
           </div>
-          <p className="lede">We run across Zambia, from the Copperbelt to Livingstone and from Mongu to Chipata. Trips to Limpopo, Pretoria and Johannesburg are coming soon. Pick a route, or click any town on the map.</p>
-        </div>
+        )}
         <div className="routes-grid">
           <div>
             <div className="corridors" aria-label="Routes">

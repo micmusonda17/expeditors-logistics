@@ -11,6 +11,7 @@ import { CurrencyOptions, laneOf, phoneCountry } from './shared';
 import { driverMessage, statusMessage } from './messages';
 import { firstName } from '../lib/format';
 import { COMPANY } from '../config';
+import { href } from '../lib/router';
 
 function RouteMap({ load }: { load: Load }) {
   const ref = useRef<SVGSVGElement>(null);
@@ -89,7 +90,7 @@ export function LoadDrawer({ load: l }: { load: Load }) {
         <div className="btn-row">
           <button type="button" className="btn btn-wa btn-sm" onClick={() => message({ to: l.customer, phone: toIntl(l.customerPhone, cc), text: statusMessage(l) })}><IconWhatsApp />Send update to customer</button>
           <button type="button" className="btn btn-ghost btn-sm" onClick={() => copyText(trackingLink(l.ref))}><IconLink />Copy tracking link</button>
-          <a className="btn btn-ghost btn-sm" href={`#track-${l.ref}`}>View as customer</a>
+          <a className="btn btn-ghost btn-sm" href={href({ page: 'track', track: l.ref })} target="_blank" rel="noopener">View as customer</a>
         </div>
 
         <section className="dr-sec">

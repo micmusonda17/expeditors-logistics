@@ -41,6 +41,11 @@ services:
     runtime: static
     buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: frontend/dist
+    # Every page address (/services, /track/ELL-XXXX, /admin ...) loads the site.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_API_URL
         value: https://expeditors-api.onrender.com/api

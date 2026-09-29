@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { api, type Load, type LoadInput, type Quote, type Review, type User } from '../api';
 import { onUnauthorized } from '../api/http';
+import { Link, asset } from '../lib/router';
 import { IS_DEMO } from '../config';
 import { toast } from '../components/Toast';
 import { IconDash, IconPlus, IconQuote, IconStar, IconTruck, IconWeb } from '../components/Icons';
@@ -82,13 +83,13 @@ function Portal({ user, view, onSignOut }: { user: User; view: View; onSignOut()
     <AdminCtx.Provider value={ctx}>
       <div className="pt">
         <aside className="pt-side">
-          <a className="pt-brand" href="#admin" aria-label="Portal home"><img src="assets/img/wordmark-white.png" alt="Expeditors" /><span>Operations</span></a>
+          <Link className="pt-brand" to={{ page: 'admin', view: 'dash' }} aria-label="Portal home"><img src={asset('assets/img/wordmark-white.png')} alt="Expeditors" /><span>Operations</span></Link>
           <nav className="pt-nav" aria-label="Portal">
-            <a href="#admin" className={view === 'dash' ? 'on' : ''}><IconDash /><span>Dashboard</span></a>
-            <a href="#admin-quotes" className={view === 'quotes' ? 'on' : ''}><IconQuote /><span>Quotes</span><b className="pt-count">{nNew || ''}</b></a>
-            <a href="#admin-loads" className={view === 'loads' ? 'on' : ''}><IconTruck /><span>Loads</span><b className="pt-count">{nActive || ''}</b></a>
-            <a href="#admin-reviews" className={view === 'reviews' ? 'on' : ''}><IconStar /><span>Reviews</span><b className="pt-count">{nPending || ''}</b></a>
-            <a href="#top" className="pt-web"><IconWeb /><span>Website</span></a>
+            <Link to={{ page: 'admin', view: 'dash' }} className={view === 'dash' ? 'on' : ''}><IconDash /><span>Dashboard</span></Link>
+            <Link to={{ page: 'admin', view: 'quotes' }} className={view === 'quotes' ? 'on' : ''}><IconQuote /><span>Quotes</span><b className="pt-count">{nNew || ''}</b></Link>
+            <Link to={{ page: 'admin', view: 'loads' }} className={view === 'loads' ? 'on' : ''}><IconTruck /><span>Loads</span><b className="pt-count">{nActive || ''}</b></Link>
+            <Link to={{ page: 'admin', view: 'reviews' }} className={view === 'reviews' ? 'on' : ''}><IconStar /><span>Reviews</span><b className="pt-count">{nPending || ''}</b></Link>
+            <Link to={{ page: 'home' }} className="pt-web"><IconWeb /><span>Website</span></Link>
           </nav>
           <div className="pt-user">
             {IS_DEMO && (

@@ -8,18 +8,20 @@ const FAQS: [string, string][] = [
   ['How long does Lusaka to the Copperbelt take?', 'Lusaka to Kitwe is about 380 km by road. We confirm the delivery time with your quote, based on when the truck loads.'],
   ['Is my cargo insured in transit?', 'For contract work we insure goods in transit with a reputable insurance company from the day the contract is signed. For a one-off load, tell us the cargo value when you request a quote and we will confirm the cover before you book.'],
   ['Can you do return loads?', 'Yes. Trucks coming back from a delivery often have space, which can make the rate cheaper. Mention flexible dates in your request.'],
-  ['How do I track my load?', 'Use the reference on your booking confirmation in the Track a load section above, or message us on WhatsApp with the reference and we will reply with the latest position.']
+  ['How do I track my load?', 'Use the reference on your booking confirmation on the Track a load page, or message us on WhatsApp with the reference and we will reply with the latest position.']
 ];
 
-export function Faq() {
+export function Faq({ head = true }: { head?: boolean } = {}) {
   return (
-    <section className="section" id="faq" aria-labelledby="faq-title">
-      <div className="wrap faq-grid">
-        <div className="section-head">
-          <p className="eyebrow">FAQ</p>
-          <h2 id="faq-title" className="display" style={{ fontSize: 'clamp(2rem,4.2vw,3.25rem)', marginTop: 14 }}>Questions shippers ask</h2>
-          <p className="lede">Anything else, send us a message and we will answer the same way we answer quotes.</p>
-        </div>
+    <section className="section" id="faq" aria-labelledby={head ? 'faq-title' : undefined}>
+      <div className={head ? 'wrap faq-grid' : 'wrap faq-solo'}>
+        {head && (
+          <div className="section-head">
+            <p className="eyebrow">FAQ</p>
+            <h2 id="faq-title" className="display" style={{ fontSize: 'clamp(2rem,4.2vw,3.25rem)', marginTop: 14 }}>Questions shippers ask</h2>
+            <p className="lede">Anything else, send us a message and we will answer the same way we answer quotes.</p>
+          </div>
+        )}
         <div className="faqs">
           {FAQS.map(([q, a], i) => (
             <details key={q} open={i === 0}>

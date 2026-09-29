@@ -2,8 +2,8 @@
 
 Website and operations portal for Expeditors Logistics, a family-owned trucking company in Lusaka, Zambia, operating since 2017 with refrigerated (3 to 5 t) and containerised (2 and 3 t) trucks.
 
-- **Public website:** services, fleet, the family story and team, an interactive route map of Zambia (South Africa coming soon), a route planner, quote requests, load tracking and customer reviews.
-- **Operations portal** (`/#admin`): the family signs in to see quote requests, send rates on WhatsApp, book loads, post status updates, send customers their tracking link and approve reviews before they go on the website.
+- **Public website:** a multi-page site with a main menu and dropdowns: services, routes (interactive map of Zambia, South Africa coming soon), fleet, the family story and team, reviews, FAQ, quote requests, load tracking and contact.
+- **Operations portal** (`/admin`): the family signs in to see quote requests, send rates on WhatsApp, book loads, post status updates, send customers their tracking link and approve reviews before they go on the website.
 
 ## Architecture
 
@@ -47,10 +47,11 @@ backend/
 frontend/
   src/
     api/            typed API client (http.ts) and in-browser demo backend (demo.ts)
-    sections/       public website sections
+    pages/          one component per website page, plus page titles and descriptions (meta.ts)
+    sections/       the content blocks the pages are built from
     admin/          operations portal
     map/            interactive SVG map
-    lib/            route network, formatting, hash routing
+    lib/            route network, formatting, page router (router.tsx)
     config.ts       company details (address, phones, WhatsApp, emails)   <- edit this
 shared/network.json route network used by both sides
 docker-compose.yml  PostgreSQL, API and website
@@ -58,6 +59,22 @@ render.yaml         one-click deploy blueprint for Render
 Makefile            common commands
 api.http            example API requests (VS Code REST Client)
 ```
+
+## Website pages
+
+| Menu | Address | Page |
+|---|---|---|
+| Home | `/` | Hero with route planner, highlights, services, family story, how it works, latest reviews |
+| Services ▾ | `/services` | Refrigerated, containerised, truck hire, across Zambia, South Africa (each has its own `#` section and dropdown entry) |
+| Routes | `/routes` | Interactive map and route list |
+| Fleet | `/fleet` | The trucks |
+| About ▾ | `/about`, `/reviews`, `/faq` | Our story, our team, reviews, FAQ |
+| Track | `/track`, `/track/ELL-XXXX` | Load tracking; the second form is the link sent to customers |
+| Contact | `/contact` | Phones, WhatsApp, email, map pin |
+| Get a quote (button) | `/quote` | Quote request form |
+| Staff portal (footer) | `/admin` | Operations portal |
+
+The menu is in `frontend/src/components/Header.tsx` (the `NAV` list), and each page's browser title and search description in `frontend/src/pages/meta.ts`. Old one-page links such as `/#track-ELL-XXXX` still open the right page.
 
 ## Run it
 
@@ -76,7 +93,7 @@ docker compose exec api python -m app.cli create-user --email you@example.com --
 docker compose exec api python -m app.cli seed-demo      # optional sample data
 ```
 
-Website: http://localhost:8080 · Portal: http://localhost:8080/#admin · API docs: http://localhost:8000/api/docs
+Website: http://localhost:8080 · Portal: http://localhost:8080/admin · API docs: http://localhost:8000/api/docs
 
 ### Option B: develop in VS Code
 
@@ -88,7 +105,7 @@ Needs Python 3.11+ (`brew install python@3.12` on a Mac), Node 20+ and Docker fo
 4. `make user EMAIL=you@example.com NAME="Your Name"` creates your staff login. `make seed` adds sample data.
 5. Run and debug: pick **Full stack** in the Run and Debug panel (API with breakpoints plus the website in Chrome), or run `make api` and `make web` in two terminals.
 
-Website: http://localhost:5173 · Portal: http://localhost:5173/#admin · API docs: http://localhost:8000/api/docs
+Website: http://localhost:5173 · Portal: http://localhost:5173/admin · API docs: http://localhost:8000/api/docs
 
 ### Option C: website only, no backend
 
@@ -96,7 +113,7 @@ Website: http://localhost:5173 · Portal: http://localhost:5173/#admin · API do
 cd frontend && npm install && npm run dev:demo
 ```
 
-Everything works with sample data kept in the browser. `npm run build:demo` makes a single-file demo in `frontend/dist-demo/`.
+Everything works with sample data kept in the browser. `npm run build:demo` builds the GitHub Pages demo in `frontend/dist-demo/`, and `npm run build:preview` makes a single-file demo in `frontend/dist-preview/` that uses `#page` addresses, for hosts that cannot route page addresses.
 
 ## Tests
 
@@ -155,7 +172,7 @@ python -m app.cli create-user --email you@example.com --name "Your Name"
 
 Free tiers sleep when idle and free databases can expire, so move to a paid plan before relying on it for customers.
 
-**Anywhere with Docker:** the `backend/Dockerfile` runs migrations on start and serves on `$PORT`. The website is a static build (`frontend/dist`) that can go on Netlify, Vercel, Cloudflare Pages or the included nginx image. Set `VITE_API_URL` at build time when the API is on a different domain.
+**Anywhere with Docker:** the `backend/Dockerfile` runs migrations on start and serves on `$PORT`. The website is a static build (`frontend/dist`) that can go on Netlify, Vercel, Cloudflare Pages or the included nginx image. Whichever host you use, send every unknown path to `index.html` (a "SPA rewrite") so addresses like `/services` and `/track/ELL-XXXX` open the right page; nginx and `render.yaml` already do this. Set `VITE_API_URL` at build time when the API is on a different domain.
 
 **Custom domain:** point the domain at the website host, and optionally `api.` at the API. Add both to `CORS_ORIGINS`.
 

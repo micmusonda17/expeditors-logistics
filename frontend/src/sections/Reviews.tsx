@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { api, ApiError, type ReviewInput, type ReviewSummary } from '../api';
 import { IS_DEMO } from '../config';
 import { fmtDay } from '../lib/format';
+import { Link } from '../lib/router';
 import { IconArrow, IconCheck, IconStar } from '../components/Icons';
 import { toast } from '../components/Toast';
 
@@ -83,7 +84,7 @@ function ReviewForm({ onDone }: { onDone(): void }) {
   );
 }
 
-export function Reviews() {
+export function Reviews({ head = true }: { head?: boolean } = {}) {
   const [data, setData] = useState<ReviewSummary | null>(null);
   const [failed, setFailed] = useState(false);
   const [sent, setSent] = useState(false);
@@ -93,15 +94,17 @@ export function Reviews() {
 
   const count = data?.count ?? 0;
   return (
-    <section className="section reviews" id="reviews" aria-labelledby="reviews-title">
+    <section className="section reviews" id="reviews" aria-labelledby={head ? 'reviews-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Reviews</p>
-            <h2 id="reviews-title" className="display">What customers say</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Reviews</p>
+              <h2 id="reviews-title" className="display">What customers say</h2>
+            </div>
+            <p className="lede">Reviews from customers we have delivered for. Our team checks each one before it appears, so what you read here is real.</p>
           </div>
-          <p className="lede">Reviews from customers we have delivered for. Our team checks each one before it appears, so what you read here is real.</p>
-        </div>
+        )}
         <div className="reviews-grid">
           <div className="reviews-list">
             <div className="rv-summary">
@@ -132,7 +135,7 @@ export function Reviews() {
                   <div className="tick"><IconCheck /></div>
                   <div><h3>Thank you for your review</h3><p>It will appear here once our team has checked it.</p></div>
                 </div>
-                {IS_DEMO && <p className="notice">Preview: open the portal, approve the review under Reviews, then come back here to see it. <a href="#admin-reviews">Open the portal</a></p>}
+                {IS_DEMO && <p className="notice">Preview: open the portal, approve the review under Reviews, then come back here to see it. <Link to={{ page: 'admin', view: 'reviews' }}>Open the portal</Link></p>}
                 <div className="done-actions"><button className="btn btn-ghost" type="button" onClick={() => { setSent(false); setFormOpen(true); }}>Write another</button></div>
               </div>
             ) : formOpen ? (

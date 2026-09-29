@@ -28,20 +28,22 @@ const CopyBtn = ({ value }: { value: string }) => (
   <button type="button" className="linkbtn" onClick={() => copyText(value)}><IconCopy />Copy</button>
 );
 
-export function Contact() {
+export function Contact({ head = true }: { head?: boolean } = {}) {
   const wa = digits(COMPANY.whatsapp);
   const mapsLink = COMPANY.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY.location)}`;
   const waDisplay = wa ? '+' + wa.replace(/^(\d{3})(\d{2})(\d{3})(\d+)$/, '$1 $2 $3 $4') : '';
   return (
-    <section className="section contact" id="contact" aria-labelledby="contact-title">
+    <section className="section contact" id="contact" aria-labelledby={head ? 'contact-title' : undefined}>
       <div className="wrap">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Contact</p>
-            <h2 id="contact-title" className="display">Talk to us</h2>
+        {head && (
+          <div className="section-head">
+            <div>
+              <p className="eyebrow">Contact</p>
+              <h2 id="contact-title" className="display">Talk to us</h2>
+            </div>
+            <p className="lede">WhatsApp is the fastest way to reach us, from Zambia or anywhere on the road.</p>
           </div>
-          <p className="lede">WhatsApp is the fastest way to reach us, from Zambia or anywhere on the road.</p>
-        </div>
+        )}
         <div className="contact-grid">
           <Card icon={<IconWhatsApp />} label="WhatsApp" values={waDisplay ? [waDisplay] : []}>
             {wa && <><a className="linkbtn" href={waLink('Hello Expeditors, I would like a quote.')} target="_blank" rel="noopener">Open chat</a><CopyBtn value={waDisplay} /></>}

@@ -1,4 +1,5 @@
 import { COMPANY } from '../config';
+import { Link, asset } from '../lib/router';
 
 export function Footer() {
   return (
@@ -6,7 +7,7 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <img className="word" src="assets/img/wordmark-white.png" alt="Expeditors" width={998} height={102} />
+            <img className="word" src={asset('assets/img/wordmark-white.png')} alt="Expeditors" width={998} height={102} />
             <div className="tagline">LOGISTICS LIMITED</div>
             <p>Family-owned since {COMPANY.founded}, delivering all kinds of goods across Zambia in refrigerated and containerised trucks. South Africa coming soon.</p>
             <p className="addr">{COMPANY.location.replace(', Zambia', '')}<br />Zambia</p>
@@ -14,22 +15,22 @@ export function Footer() {
           <div>
             <h4>Company</h4>
             <ul>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#routes">Routes</a></li>
-              <li><a href="#fleet">Fleet</a></li>
-              <li><a href="#about">About us</a></li>
-              <li><a href="#team">Our team</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              <li><Link to={{ page: 'services' }}>Services</Link></li>
+              <li><Link to={{ page: 'routes' }}>Routes</Link></li>
+              <li><Link to={{ page: 'fleet' }}>Fleet</Link></li>
+              <li><Link to={{ page: 'about' }}>About us</Link></li>
+              <li><Link to={{ page: 'about', anchor: 'team' }}>Our team</Link></li>
+              <li><Link to={{ page: 'faq' }}>FAQ</Link></li>
             </ul>
           </div>
           <div>
             <h4>Customers</h4>
             <ul>
-              <li><a href="#quote">Get a quote</a></li>
-              <li><a href="#track">Track a load</a></li>
-              <li><a href="#reviews">Reviews</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="#admin">Staff portal</a></li>
+              <li><Link to={{ page: 'quote' }}>Get a quote</Link></li>
+              <li><Link to={{ page: 'track' }}>Track a load</Link></li>
+              <li><Link to={{ page: 'reviews' }}>Reviews</Link></li>
+              <li><Link to={{ page: 'contact' }}>Contact</Link></li>
+              <li><Link to={{ page: 'admin', view: 'dash' }}>Staff portal</Link></li>
             </ul>
           </div>
         </div>

@@ -2,6 +2,7 @@
 import { API_URL } from '../config';
 import { ApiError, type Api, type Load, type Quote, type Review, type ReviewSummary, type Tracking, type User } from './types';
 
+// After a staff member signs in, their token is kept in the browser under this name.
 const TOKEN_KEY = 'ell-token';
 const getToken = () => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } };
 const setToken = (t: string | null) => { try { if (t) localStorage.setItem(TOKEN_KEY, t); else localStorage.removeItem(TOKEN_KEY); } catch { /* storage blocked */ } };
@@ -18,6 +19,8 @@ function messageFrom(body: unknown, fallback: string): string {
   return fallback;
 }
 
+// Every call to the backend goes through here: it sends the request, adds the staff token
+// when `auth` is true, and turns error replies into a readable message.
 async function request<T>(path: string, init: RequestInit = {}, auth = false): Promise<T> {
   const headers: Record<string, string> = { Accept: 'application/json' };
   if (init.body) headers['Content-Type'] = 'application/json';
@@ -40,6 +43,7 @@ async function request<T>(path: string, init: RequestInit = {}, auth = false): P
 
 const json = (method: string, body: unknown): RequestInit => ({ method, body: JSON.stringify(body) });
 
+// One function per backend endpoint. Each line maps to a row on the /api/docs page.
 export const httpApi: Api = {
   mode: 'live',
   submitQuote: q => request('/quotes', json('POST', q)),

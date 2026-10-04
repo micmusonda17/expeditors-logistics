@@ -18,6 +18,10 @@ router = APIRouter(prefix="/quotes", tags=["quotes"])
     summary="Submit a quote request (public)",
 )
 def create_quote(body: QuoteCreate, db: DbSession, net: NetworkDep, tasks: BackgroundTasks) -> QuoteReceipt:
+    # By the time we get here, FastAPI has already checked the form against QuoteCreate
+    # (required fields, lengths, phone format). Bad requests never reach this code.
+
+    # Match the typed towns to towns on our road network and work out the distance.
     from_hub = net.match_hub(body.pickup) or ""
     to_hub = net.match_hub(body.delivery) or ""
     route = net.shortest(from_hub, to_hub) if from_hub and to_hub else None
@@ -27,10 +31,12 @@ def create_quote(body: QuoteCreate, db: DbSession, net: NetworkDep, tasks: Backg
         # Honeypot filled in: almost certainly a bot. Pretend it worked, store nothing.
         return QuoteReceipt(ref=new_quote_ref(), km=km, from_hub=from_hub, to_hub=to_hub)
 
+    # Give the quote a short reference, and make sure no other quote already has it.
     ref = new_quote_ref()
     while db.scalar(select(Quote.id).where(Quote.ref == ref)):
         ref = new_quote_ref()
 
+    # Save it to the database.
     quote = Quote(
         ref=ref,
         **body.model_dump(exclude={"website", "email"}),
@@ -41,7 +47,9 @@ def create_quote(body: QuoteCreate, db: DbSession, net: NetworkDep, tasks: Backg
     )
     db.add(quote)
     db.commit()
+    # Email the company inbox after the response is sent, so the customer is not kept waiting.
     tasks.add_task(send_quote_email, quote)
+    # The website shows this reference on its thank-you message.
     return QuoteReceipt(ref=ref, km=km, from_hub=from_hub, to_hub=to_hub)
 
 
@@ -53,6 +61,7 @@ def list_quotes(
     search: str | None = Query(None, max_length=100),
     limit: int = Query(500, le=2000),
 ) -> list[Quote]:
+    # Newest first. The portal can narrow the list by status or by a search word.
     stmt = select(Quote).order_by(Quote.created_at.desc()).limit(limit)
     if status_filter:
         stmt = stmt.where(Quote.status == status_filter)
@@ -91,6 +100,7 @@ def get_quote(quote_id: int, db: DbSession, _: StaffUser) -> Quote:
 
 @router.patch("/{quote_id}", response_model=QuoteOut)
 def update_quote(quote_id: int, body: QuotePatch, db: DbSession, _: StaffUser) -> Quote:
+    # PATCH only changes the fields the portal sent (for example just the rate), nothing else.
     quote = _get(db, quote_id)
     changes = body.model_dump(exclude_unset=True)
     for key, value in changes.items():

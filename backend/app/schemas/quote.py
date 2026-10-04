@@ -9,8 +9,12 @@ QuoteStatus = Literal["new", "quoted", "won", "lost"]
 Currency = Literal["ZMW", "USD", "ZAR"]
 
 
+# Schemas describe the JSON that goes in and out of the API. Models (app/models) describe the
+# database. Keeping them separate means the API never exposes a column by accident.
+
+
 class QuoteCreate(CamelModel):
-    """Sent by the public quote form."""
+    """Sent by the public quote form. FastAPI rejects a request that breaks these rules."""
 
     service: str = Field("One-off load", max_length=60)
     name: str = Field(min_length=2, max_length=120)
@@ -34,6 +38,7 @@ class QuoteCreate(CamelModel):
         return None if v == "" else v
 
 
+# What the customer gets back after sending the form.
 class QuoteReceipt(CamelModel):
     ref: str
     km: int
@@ -41,6 +46,7 @@ class QuoteReceipt(CamelModel):
     to_hub: str
 
 
+# What the staff portal gets for each quote.
 class QuoteOut(CamelModel):
     id: int
     ref: str

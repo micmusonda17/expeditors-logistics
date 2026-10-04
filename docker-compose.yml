@@ -3,6 +3,7 @@
 name: expeditors
 
 services:
+  # 1. The database. Data is kept in the "pgdata" volume, so it survives restarts.
   db:
     image: postgres:16-alpine
     environment:
@@ -19,6 +20,8 @@ services:
       timeout: 3s
       retries: 20
 
+  # 2. The backend (FastAPI). It waits for the database, applies migrations on start,
+  #    and serves the API on port 8000 (docs at http://localhost:8000/api/docs).
   api:
     build:
       context: .
@@ -40,6 +43,8 @@ services:
       db:
         condition: service_healthy
 
+  # 3. The website. The React app is built once, then served by nginx on port 8080.
+  #    nginx also passes every /api request through to the backend container.
   web:
     build:
       context: .

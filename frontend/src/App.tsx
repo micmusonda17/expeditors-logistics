@@ -14,6 +14,7 @@ import { PAGE_META } from './pages/meta';
 
 type SiteRoute = Exclude<Route, { page: 'admin' }>;
 
+// Picks the page component for the current address, e.g. /services shows ServicesPage.
 function Page({ route }: { route: SiteRoute }) {
   switch (route.page) {
     case 'services': return <ServicesPage />;
@@ -29,6 +30,7 @@ function Page({ route }: { route: SiteRoute }) {
   }
 }
 
+// Browser tab title and Google description for each page (text lives in pages/meta.ts).
 function setMeta(page: PageKey) {
   const m = PAGE_META[page];
   document.title = m.title;
@@ -53,6 +55,8 @@ function useScrollOnRoute(route: SiteRoute) {
   }, [route]);
 }
 
+// The public website: the same header, footer and WhatsApp button around every page.
+// SiteProvider holds state that pages share, such as the route picked in the planner.
 function Site({ route }: { route: SiteRoute }) {
   useEffect(() => setMeta(route.page), [route.page]);
   useScrollOnRoute(route);
@@ -69,6 +73,7 @@ function Site({ route }: { route: SiteRoute }) {
   );
 }
 
+// Top of the app: read the address, then show either the staff portal (/admin) or the website.
 export function App() {
   const route = useRoute();
   return (

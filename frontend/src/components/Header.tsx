@@ -5,6 +5,8 @@ import { IconChevron, IconMenu, IconX } from './Icons';
 interface SubItem { label: string; desc?: string; to: Route }
 interface NavItem { label: string; to: Route; pages: PageKey[]; children?: SubItem[] }
 
+// The main menu. Add, remove or rename tabs here. An item with `children` gets a dropdown,
+// and `pages` says which pages underline that tab as the current one.
 export const NAV: NavItem[] = [
   { label: 'Home', to: { page: 'home' }, pages: ['home'] },
   {
@@ -33,6 +35,8 @@ export const NAV: NavItem[] = [
   { label: 'Contact', to: { page: 'contact' }, pages: ['contact'] }
 ];
 
+// One dropdown menu (Services or About). Opens on hover on a computer, on tap on a phone,
+// and closes on a click outside or the Escape key.
 function Dropdown({ item, active, onNavigate }: { item: NavItem; active: boolean; onNavigate(): void }) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -75,10 +79,13 @@ function Dropdown({ item, active, onNavigate }: { item: NavItem; active: boolean
   );
 }
 
+// The bar at the top of every page: logo, menu and the Get a quote button.
+// On screens under 1060px wide the menu folds into the button with three lines.
 export function Header({ current }: { current: Route }) {
   const [open, setOpen] = useState(false);
   const page = current.page === 'admin' ? 'home' : current.page;
 
+  // Close the phone menu whenever the page changes.
   useEffect(() => { setOpen(false); }, [current]);
   useEffect(() => {
     document.body.classList.toggle('menu-open', open);

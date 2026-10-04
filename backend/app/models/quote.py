@@ -9,7 +9,12 @@ QUOTE_STATUSES = ("new", "quoted", "won", "lost")
 
 
 class Quote(TimestampMixin, Base):
-    """A quote request sent from the website."""
+    """A quote request sent from the website.
+
+    This class is the `quotes` table: each attribute below is a column. SQLAlchemy turns
+    Python objects of this class into rows and back. Changes to the table go through an
+    Alembic migration in backend/alembic/versions.
+    """
 
     __tablename__ = "quotes"
 

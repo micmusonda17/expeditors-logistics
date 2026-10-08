@@ -9,6 +9,7 @@ __pycache__/
 node_modules/
 dist/
 dist-demo/
+dist-preview/
 *.tsbuildinfo
 
 # Env and local files

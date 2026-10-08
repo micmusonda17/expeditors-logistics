@@ -52,7 +52,6 @@ export const hubName = (k: string) => HUBS[k]?.name ?? k;
 export const hubLabel = (k: string) => `${HUBS[k].name}, ${COUNTRIES[HUBS[k].country]}`;
 export const placeName = (k: string) =>
   HUBS[k] ? HUBS[k].name : BORDERS[k] ? `${BORDERS[k].name} border (${BORDERS[k].pair.join('/')})` : k;
-export const placeLL = (k: string): LatLon | null => (HUBS[k] || BORDERS[k])?.ll ?? null;
 
 export function matchHub(text: string | null | undefined): string | null {
   if (!text) return null;

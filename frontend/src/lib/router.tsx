@@ -146,5 +146,3 @@ export function Link({ to, onClick, children, ...rest }: LinkProps) {
   };
   return <a href={url} onClick={handle} {...rest}>{children}</a>;
 }
-
-export const samePage = (a: Route, b: Route) => a.page === b.page;
